@@ -34,7 +34,12 @@ export class PersonCard extends LitElement {
   static get properties() {
     return {
       data: { type: Object },
+      fullName: { type: String },
     };
+  }
+
+  get fullName() {
+    return `${this.data.name.last}, ${this.data.name.first}`;
   }
 
   render() {
@@ -43,7 +48,7 @@ export class PersonCard extends LitElement {
         <div class="container">
           <mwc-list>
             <mwc-list-item twoline graphic="medium" noninteractive>
-              <span>${this.data.name.last}, ${this.data.name.first}</span>
+              <span>${this.fullName}</span>
               <span slot="secondary">${this.data.email}</span>
               <mwc-icon slot="graphic">
                 <img src="${this.data.picture}" alt="Avatar" class="avatar" />
