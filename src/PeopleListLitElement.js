@@ -4,7 +4,6 @@ import '@material/mwc-circular-progress';
 export class PeopleListLitElement extends LitElement {
   static get styles() {
     return css`
-
       .card-list {
         display: grid;
         grid: auto-flow / 1fr 1fr;
@@ -15,7 +14,7 @@ export class PeopleListLitElement extends LitElement {
   static get properties() {
     return {
       isLoading: { type: Boolean },
-      list: { type: Array }
+      list: { type: Array },
     };
   }
 
