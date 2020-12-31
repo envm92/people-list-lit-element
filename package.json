@@ -1,0 +1,53 @@
+{
+  "name": "people-list-lit-element",
+  "version": "0.0.0",
+  "description": "Webcomponent people-list-lit-element following open-wc recommendations",
+  "author": "people-list-lit-element",
+  "license": "MIT",
+  "main": "index.js",
+  "module": "index.js",
+  "scripts": {
+    "start": "web-dev-server",
+    "lint": "eslint --ext .js,.html . --ignore-path .gitignore && prettier \"**/*.js\" --check --ignore-path .gitignore",
+    "format": "eslint --ext .js,.html . --fix --ignore-path .gitignore && prettier \"**/*.js\" --write --ignore-path .gitignore"
+  },
+  "dependencies": {
+    "@material/mwc-circular-progress": "^0.20.0",
+    "@material/mwc-icon": "^0.20.0",
+    "@material/mwc-icon-button": "^0.20.0",
+    "@material/mwc-list": "^0.20.0",
+    "lit-element": "^2.2.1",
+    "lit-html": "^1.1.2"
+  },
+  "devDependencies": {
+    "@web/dev-server": "^0.1.1",
+    "eslint": "^6.1.0",
+    "@open-wc/eslint-config": "^4.2.0",
+    "prettier": "^2.0.4",
+    "eslint-config-prettier": "^6.11.0",
+    "husky": "^1.0.0",
+    "lint-staged": "^10.0.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@open-wc/eslint-config",
+      "eslint-config-prettier"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "arrowParens": "avoid"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
