@@ -3,6 +3,7 @@ import { classMap } from 'lit-html/directives/class-map';
 import '@material/mwc-list';
 import '@material/mwc-icon';
 import '@material/mwc-icon-button';
+import '@material/mwc-icon-button-toggle';
 
 export class PersonCard extends LitElement {
   static get styles() {
@@ -169,16 +170,18 @@ export class PersonCard extends LitElement {
   render() {
     return html`
     <div class=${classMap(this.classes)}>
-    <section class="cardHeader" @click="${this._expand}">
+    <section class="cardHeader" >
       <mwc-list>
-        <mwc-list-item twoline graphic="medium" noninteractive>
+        <mwc-list-item twoline graphic="medium"  hasMeta  @click=${this._expand}>
           <span>${this.fullName}</span>
           <span slot="secondary">${this.data.email}</span>
           <mwc-icon slot="graphic">
             <img src="${this.data.picture}" alt="Avatar" class="avatar" />
           </mwc-icon>
+          <mwc-icon slot="meta"> ${(!this.classes.cardActive)? 'expand_more' : 'expand_less'}</mwc-icon>
         </mwc-list-item>
       </mwc-list>
+
     </section>
     <section class="nonSharedContent">
         <div class="status-bar">
