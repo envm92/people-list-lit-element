@@ -4,9 +4,16 @@ import '@material/mwc-circular-progress';
 export class PeopleListLitElement extends LitElement {
   static get styles() {
     return css`
-      .card-list {
-        display: grid;
-        grid: auto-flow / 1fr 1fr;
+      .card-list { 
+        /*display: grid;
+        grid: auto-flow / 1fr 1fr;*/
+      }
+      .center-element {
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
       }
     `;
   }
@@ -36,7 +43,9 @@ export class PeopleListLitElement extends LitElement {
   render() {
     if (this.isLoading) {
       return html`
+      <div class="center-element">
         <mwc-circular-progress indeterminate></mwc-circular-progress>
+      </div>
       `;
     }
     return html`
