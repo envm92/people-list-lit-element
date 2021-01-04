@@ -16,10 +16,10 @@ export class PersonCard extends LitElement {
             border-radius: 2px;
             background-color: #fefefe;
             height: 88px;
-            max-width: 500px;
+            max-width: 450px;
             overflow: hidden;
             transition: 375ms cubic-bezier(0.4, 0.0, 0.2, 1);
-            margin: 10px;
+            margin: 5px;
         }
 
         .cardActive {
@@ -141,7 +141,7 @@ export class PersonCard extends LitElement {
   }
 
   _getMapURL() {
-    return `http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/${this.data.latitude},${this.data.longitude}/5?mapSize=500,225&pp=${this.data.latitude},${this.data.longitude};66&mapLayer=Basemap,Buildings&key=AuK_RR4rfzQdoyrg7zoWCOzT_3wCjZaxSTNrq5s5_CfF4vmd46JX_oPwi3pSxIli`;
+    return `http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/${this.data.latitude},${this.data.longitude}/5?mapSize=450,225&pp=${this.data.latitude},${this.data.longitude};66&mapLayer=Basemap,Buildings&key=AuK_RR4rfzQdoyrg7zoWCOzT_3wCjZaxSTNrq5s5_CfF4vmd46JX_oPwi3pSxIli`;
   }
 
   _getFavoriteFruitEmoji() {

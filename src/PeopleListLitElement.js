@@ -19,6 +19,28 @@ export class PeopleListLitElement extends LitElement {
         align-items: center;
         height: 100vh;
       }
+      @media screen and (max-width: 959px) {
+        .card-list {
+          grid: auto-flow / 1fr;
+        }
+      }
+      @media screen and (min-width: 960px) and (max-width: 1380px) {
+        .card-list {
+          grid: auto-flow / 1fr 1fr;
+        }
+      }
+
+      @media screen and (min-width: 1381px) and (max-width: 1879px) {
+        .card-list {
+          grid: auto-flow / 1fr 1fr 1fr;
+        }
+      }
+
+      @media screen and (min-width: 1880px){
+        .card-list {
+          grid: auto-flow / 1fr 1fr 1fr 1fr;
+        }
+      }
     `;
   }
 
