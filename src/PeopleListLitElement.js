@@ -1,10 +1,11 @@
 import { html, css, LitElement } from 'lit-element';
+import { until } from 'lit-html/directives/until.js';
 import '@material/mwc-circular-progress';
 
 export class PeopleListLitElement extends LitElement {
   static get styles() {
     return css`
-      .card-list {
+      :host {
         display: grid;
         width: 100%;
         height: auto;
@@ -20,24 +21,24 @@ export class PeopleListLitElement extends LitElement {
         height: 100vh;
       }
       @media screen and (max-width: 959px) {
-        .card-list {
+        :host {
           grid: auto-flow / 1fr;
         }
       }
       @media screen and (min-width: 960px) and (max-width: 1380px) {
-        .card-list {
+        :host {
           grid: auto-flow / 1fr 1fr;
         }
       }
 
       @media screen and (min-width: 1381px) and (max-width: 1879px) {
-        .card-list {
+        :host {
           grid: auto-flow / 1fr 1fr 1fr;
         }
       }
 
       @media screen and (min-width: 1880px) {
-        .card-list {
+        :host {
           grid: auto-flow / 1fr 1fr 1fr 1fr;
         }
       }
@@ -46,38 +47,28 @@ export class PeopleListLitElement extends LitElement {
 
   static get properties() {
     return {
-      isLoading: { type: Boolean },
-      list: { type: Array },
+      request: { type: Object },
     };
   }
 
   constructor() {
     super();
-    this.isLoading = true;
     this.list = [];
-  }
-
-  async firstUpdated() {
-    await fetch(`http://demo6292426.mockable.io/persons`)
+    this.request = fetch(`http://demo6292426.mockable.io/persons`)
       .then(r => r.json())
       .then(async data => {
-        this.list.push(...data);
-        this.isLoading = false;
+        return data.map(v => html` <person-card .data="${v}"></person-card>`);
       });
   }
 
   render() {
-    if (this.isLoading) {
-      return html`
+    return html` ${until(
+      this.request,
+      html`
         <div class="center-element">
           <mwc-circular-progress indeterminate></mwc-circular-progress>
         </div>
-      `;
-    }
-    return html`
-      <div class="card-list">
-        ${this.list.map(v => html` <person-card .data="${v}"></person-card>`)}
-      </div>
-    `;
+      `
+    )}`;
   }
 }
