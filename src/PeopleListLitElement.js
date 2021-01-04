@@ -5,8 +5,12 @@ export class PeopleListLitElement extends LitElement {
   static get styles() {
     return css`
       .card-list { 
-        /*display: grid;
-        grid: auto-flow / 1fr 1fr;*/
+        display: grid;
+        width: 100%;
+        height: auto;
+        grid: auto-flow / 1fr 1fr 1fr;
+        justify-items: center;
+        align-items: start;
       }
       .center-element {
         width: 100vw;
