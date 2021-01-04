@@ -71,26 +71,25 @@ export class PersonCard extends LitElement {
           margin: 0 5px 3px 0;
         }
         .status {
+          display: flex;
           align-items: center;
-          padding-top: 5px;
-          padding-right: 10px;
+          height: 100%;
+          justify-content: center;
         }
 
         .online-icon {
           font-size: 20px;
           color: #00BB33;
+          padding-right:2px;
         }
         .notify {
           position: relative;
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 50px;
-          height: 50px;
+          width: 35px;
+          height: 35px;
           color: #333333;
-          border: none;
-          outline: none;
-          border-radius: 50%;
         }
         .notify-badge{
           position: absolute;
@@ -104,6 +103,7 @@ export class PersonCard extends LitElement {
           justify-content: center;
           align-items: center;
           border-radius: 50%;
+          font-size: 10px;
         }
         .status-bar {
           padding: 0 15px;
@@ -172,7 +172,7 @@ export class PersonCard extends LitElement {
     <div class=${classMap(this.classes)}>
     <section class="cardHeader" >
       <mwc-list>
-        <mwc-list-item twoline graphic="medium"  hasMeta  @click=${this._expand}>
+        <mwc-list-item twoline graphic="medium" hasMeta  @click=${this._expand}>
           <span>${this.fullName}</span>
           <span slot="secondary">${this.data.email}</span>
           <mwc-icon slot="graphic">
