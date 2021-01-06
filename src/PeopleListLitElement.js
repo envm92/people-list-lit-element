@@ -53,8 +53,7 @@ export class PeopleListLitElement extends LitElement {
 
   constructor() {
     super();
-    this.list = [];
-    this.request = fetch(`http://demo6292426.mockable.io/persons`)
+    this.request = fetch('http://demo6292426.mockable.io/persons')
       .then(r => r.json())
       .then(async data => {
         return data.map(v => html` <person-card .data="${v}"></person-card>`);

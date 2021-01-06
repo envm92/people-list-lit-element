@@ -1,13 +1,23 @@
 import { html, css, LitElement } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
+import * as L from 'leaflet';
+import style from 'leaflet/dist/leaflet.css';
 import '@material/mwc-list';
 import '@material/mwc-icon';
 import '@material/mwc-icon-button';
 import '@material/mwc-icon-button-toggle';
 
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl:
+    'https://unpkg.com/leaflet@1.3.2/dist/images/marker-icon-2x.png',
+  iconUrl: 'https://unpkg.com/leaflet@1.3.2/dist/images/marker-icon-2x.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.3.2/dist/images/marker-shadow.png',
+});
+
 export class PersonCard extends LitElement {
   static get styles() {
     return [
+      style,
       css`
         :host {
           font-family: 'Roboto';
@@ -113,6 +123,10 @@ export class PersonCard extends LitElement {
           align-items: center;
           justify-content: space-between;
         }
+        #location {
+          height: 240px;
+          width: 450px;
+        }
       `,
     ];
   }
@@ -136,6 +150,7 @@ export class PersonCard extends LitElement {
   _expand() {
     this.classes.cardActive = !this.classes.cardActive;
     this.requestUpdate();
+    this._loadMapLeaflet();
   }
 
   _maskBalance() {
@@ -143,8 +158,16 @@ export class PersonCard extends LitElement {
     return this.data.balance.replaceAll(rgx, '');
   }
 
-  _getMapURL() {
-    return `http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/${this.data.latitude},${this.data.longitude}/5?mapSize=450,225&pp=${this.data.latitude},${this.data.longitude};66&mapLayer=Basemap,Buildings&key=AuK_RR4rfzQdoyrg7zoWCOzT_3wCjZaxSTNrq5s5_CfF4vmd46JX_oPwi3pSxIli`;
+  _loadMapLeaflet() {
+    const latlong = [this.data.latitude, this.data.longitude];
+    const refMap = this.shadowRoot.getElementById('location');
+    const myMap = L.map(refMap).setView(latlong, 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(myMap);
+
+    L.marker(latlong).addTo(myMap);
   }
 
   _getFavoriteFruitEmoji() {
@@ -270,7 +293,7 @@ export class PersonCard extends LitElement {
               <span slot="secondary">${this.data.address}</span>
             </mwc-list-item>
           </mwc-list>
-          <img src="${this._getMapURL()}" alt="Map of Address" />
+          <div id="location"></div>
           <mwc-list>
             <mwc-list-item noninteractive><h4>Friends</h4></mwc-list-item>
             <li divider role="separator"></li>
