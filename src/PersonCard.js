@@ -149,8 +149,12 @@ export class PersonCard extends LitElement {
 
   _expand() {
     this.classes.cardActive = !this.classes.cardActive;
+    if (this.classes.cardActive) {
+      this._loadMapLeaflet();
+    } else {
+      this._destroyMapLeaflet();
+    }
     this.requestUpdate();
-    this._loadMapLeaflet();
   }
 
   _maskBalance() {
@@ -161,13 +165,20 @@ export class PersonCard extends LitElement {
   _loadMapLeaflet() {
     const latlong = [this.data.latitude, this.data.longitude];
     const refMap = this.shadowRoot.getElementById('location');
-    const myMap = L.map(refMap).setView(latlong, 13);
+    this.lefMap = L.map(refMap).setView(latlong, 3);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(myMap);
+    }).addTo(this.lefMap);
 
-    L.marker(latlong).addTo(myMap);
+    L.marker(latlong).addTo(this.lefMap);
+  }
+
+  _destroyMapLeaflet() {
+    if (this.lefMap && this.lefMap.remove) {
+      this.lefMap.off();
+      this.lefMap.remove();
+    }
   }
 
   _getFavoriteFruitEmoji() {
